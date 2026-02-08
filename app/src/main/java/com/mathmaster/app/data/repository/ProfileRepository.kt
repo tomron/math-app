@@ -10,19 +10,19 @@ import kotlinx.coroutines.flow.Flow
  */
 open class ProfileRepository(private val profileDao: ProfileDao) {
 
-    fun getAllProfiles(): Flow<List<ProfileEntity>> {
+    open fun getAllProfiles(): Flow<List<ProfileEntity>> {
         return profileDao.getAllProfiles()
     }
 
-    suspend fun getProfileById(id: Long): ProfileEntity? {
+    open suspend fun getProfileById(id: Long): ProfileEntity? {
         return profileDao.getProfileById(id)
     }
 
-    suspend fun getProfileByName(name: String): ProfileEntity? {
+    open suspend fun getProfileByName(name: String): ProfileEntity? {
         return profileDao.getProfileByName(name)
     }
 
-    suspend fun createProfile(name: String): Result<Long> {
+    open suspend fun createProfile(name: String): Result<Long> {
         return try {
             // Check if name already exists
             val existing = profileDao.getProfileByName(name)
@@ -39,11 +39,11 @@ open class ProfileRepository(private val profileDao: ProfileDao) {
         }
     }
 
-    suspend fun deleteProfile(profile: ProfileEntity) {
+    open suspend fun deleteProfile(profile: ProfileEntity) {
         profileDao.delete(profile)
     }
 
-    suspend fun deleteProfileById(id: Long) {
+    open suspend fun deleteProfileById(id: Long) {
         profileDao.deleteById(id)
     }
 
