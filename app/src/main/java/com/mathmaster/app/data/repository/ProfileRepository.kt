@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
  * Repository for profile data operations.
  * Provides a clean API over the ProfileDao.
  */
-class ProfileRepository(private val profileDao: ProfileDao) {
+open class ProfileRepository(private val profileDao: ProfileDao) {
 
     fun getAllProfiles(): Flow<List<ProfileEntity>> {
         return profileDao.getAllProfiles()
