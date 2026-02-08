@@ -34,7 +34,7 @@ val allGames = listOf(
         id = GameType.SUBTRACTION,
         title = "Subtraction",
         description = "Practice subtracting numbers",
-        icon = Icons.Default.Remove,
+        icon = Icons.Default.Delete,
         route = Routes.GAME_SUBTRACTION
     ),
     GameDefinition(
@@ -48,21 +48,21 @@ val allGames = listOf(
         id = GameType.DIVISION,
         title = "Division",
         description = "Practice dividing numbers",
-        icon = Icons.Default.PieChart,
+        icon = Icons.Default.Star,
         route = Routes.GAME_DIVISION
     ),
     GameDefinition(
         id = GameType.MIXED,
         title = "Mixed Operations",
         description = "Practice all operations",
-        icon = Icons.Default.GridOn,
+        icon = Icons.Default.Settings,
         route = Routes.GAME_MIXED
     ),
     GameDefinition(
         id = GameType.SPEED,
         title = "Speed Round",
         description = "Fast-paced math challenges",
-        icon = Icons.Default.Timer,
+        icon = Icons.Default.PlayArrow,
         route = Routes.GAME_SPEED
     )
 )
