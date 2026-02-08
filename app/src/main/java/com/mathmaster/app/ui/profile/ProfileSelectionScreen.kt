@@ -35,6 +35,7 @@ fun ProfileSelectionScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProfileSelectionContent(
     uiState: ProfileSelectionUiState,
