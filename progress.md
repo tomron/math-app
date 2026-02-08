@@ -34,11 +34,11 @@
 ## Phase 3: Game Menu
 **Branch:** `feature/game-menu`
 
-- [ ] Game menu screen (grid of 6 game cards)
-- [ ] Game definition model (id, title, description, icon)
-- [ ] Navigation from profile → menu
-- [ ] Unit tests: menu ViewModel
-- [ ] UI tests: menu display, game card tap navigation
+- [x] Game menu screen (grid of 6 game cards)
+- [x] Game definition model (id, title, description, icon)
+- [x] Navigation from profile → menu
+- [x] Unit tests: menu ViewModel
+- [x] UI tests: menu display, game card tap navigation
 
 ## Phase 4: Game Scaffold & Navigation
 **Branch:** `feature/game-scaffold`
