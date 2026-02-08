@@ -23,13 +23,13 @@
 ## Phase 2: Profile System
 **Branch:** `feature/profile-system`
 
-- [ ] Profile entity + DAO
-- [ ] Profile repository
-- [ ] Profile selection screen (list, select, delete)
-- [ ] Profile creation dialog (name + generated initials avatar)
-- [ ] Unique name validation
-- [ ] Unit tests: DAO, repository, ViewModel
-- [ ] UI tests: profile creation, selection, deletion
+- [x] Profile entity + DAO
+- [x] Profile repository
+- [x] Profile selection screen (list, select, delete)
+- [x] Profile creation dialog (name + generated initials avatar)
+- [x] Unique name validation
+- [x] Unit tests: DAO, repository, ViewModel
+- [x] UI tests: profile creation, selection, deletion
 
 ## Phase 3: Game Menu
 **Branch:** `feature/game-menu`
