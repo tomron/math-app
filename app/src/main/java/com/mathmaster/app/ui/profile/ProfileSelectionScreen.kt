@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mathmaster.app.data.db.ProfileEntity
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileSelectionScreen(
     viewModel: ProfileSelectionViewModel,
