@@ -10,15 +10,15 @@
 ## Phase 1: Project Foundation
 **Branch:** `claude/setup-android-math-games-S5UBn`
 
-- [~] Planning documents (PRD.md, progress.md, CLAUDE.md)
-- [ ] Android project scaffold (Gradle, app module, dependencies)
-- [ ] Room database setup (AppDatabase, migrations)
-- [ ] Base theme (Material 3, colors, typography)
-- [ ] Navigation graph skeleton
-- [ ] GitHub Actions: test on push
-- [ ] GitHub Actions: test on-demand with branch parameter
-- [ ] GitHub Actions: release build for Google Play
-- [ ] Verify local emulator build & run
+- [x] Planning documents (PRD.md, progress.md, CLAUDE.md)
+- [x] Android project scaffold (Gradle, app module, dependencies)
+- [x] Room database setup (AppDatabase, migrations)
+- [x] Base theme (Material 3, colors, typography)
+- [x] Navigation graph skeleton
+- [x] GitHub Actions: test on push
+- [x] GitHub Actions: test on-demand with branch parameter
+- [x] GitHub Actions: release build for Google Play
+- [~] Verify local emulator build & run
 
 ## Phase 2: Profile System
 **Branch:** `feature/profile-system`
