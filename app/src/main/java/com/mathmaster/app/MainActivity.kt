@@ -16,6 +16,7 @@ import com.mathmaster.app.ui.theme.MathMasterTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val application = application as MathMasterApplication
         setContent {
             MathMasterTheme {
                 Surface(
@@ -23,7 +24,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    MathMasterNavGraph(navController = navController)
+                    MathMasterNavGraph(
+                        navController = navController,
+                        application = application
+                    )
                 }
             }
         }
