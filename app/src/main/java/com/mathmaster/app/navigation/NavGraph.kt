@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.mathmaster.app.MathMasterApplication
 import com.mathmaster.app.ui.profile.ProfileSelectionScreen
 import com.mathmaster.app.ui.profile.ProfileSelectionViewModel
+import com.mathmaster.app.ui.profile.ProfileSelectionViewModelFactory
 
 @Composable
 fun MathMasterNavGraph(
