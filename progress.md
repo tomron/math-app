@@ -1,0 +1,109 @@
+# MathMaster - Implementation Progress
+
+## Status Legend
+- [ ] Not started
+- [~] In progress
+- [x] Completed
+
+---
+
+## Phase 1: Project Foundation
+**Branch:** `claude/setup-android-math-games-S5UBn`
+
+- [~] Planning documents (PRD.md, progress.md, CLAUDE.md)
+- [ ] Android project scaffold (Gradle, app module, dependencies)
+- [ ] Room database setup (AppDatabase, migrations)
+- [ ] Base theme (Material 3, colors, typography)
+- [ ] Navigation graph skeleton
+- [ ] GitHub Actions: test on push
+- [ ] GitHub Actions: test on-demand with branch parameter
+- [ ] GitHub Actions: release build for Google Play
+- [ ] Verify local emulator build & run
+
+## Phase 2: Profile System
+**Branch:** `feature/profile-system`
+
+- [ ] Profile entity + DAO
+- [ ] Profile repository
+- [ ] Profile selection screen (list, select, delete)
+- [ ] Profile creation dialog (name + generated initials avatar)
+- [ ] Unique name validation
+- [ ] Unit tests: DAO, repository, ViewModel
+- [ ] UI tests: profile creation, selection, deletion
+
+## Phase 3: Game Menu
+**Branch:** `feature/game-menu`
+
+- [ ] Game menu screen (grid of 6 game cards)
+- [ ] Game definition model (id, title, description, icon)
+- [ ] Navigation from profile → menu
+- [ ] Unit tests: menu ViewModel
+- [ ] UI tests: menu display, game card tap navigation
+
+## Phase 4: Game Scaffold & Navigation
+**Branch:** `feature/game-scaffold`
+
+- [ ] Base game screen composable (top bar, back button, difficulty selector)
+- [ ] Difficulty enum (Easy, Medium, Hard)
+- [ ] Navigation: menu → game → back to menu
+- [ ] Unit tests: navigation logic
+- [ ] UI tests: difficulty selection, back navigation
+
+## Phase 5: Game Placeholders
+Each game gets its own branch and follows the same pattern:
+
+### Addition — `feature/game-addition`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+### Subtraction — `feature/game-subtraction`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+### Multiplication — `feature/game-multiplication`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+### Division — `feature/game-division`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+### Mixed Operations — `feature/game-mixed`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+### Speed Round — `feature/game-speed`
+- [ ] Placeholder screen with difficulty selector
+- [ ] Tests
+
+## Phase 6: Release Pipeline
+**Branch:** `feature/release-pipeline`
+
+- [ ] Signing configuration (keystore via GitHub secrets)
+- [ ] Release build workflow (signed AAB)
+- [ ] Artifact upload step
+- [ ] Google Play deployment step (optional — requires service account)
+
+---
+
+## Merge Order
+
+```
+1. claude/setup-android-math-games-S5UBn  →  main
+2. feature/profile-system                 →  main
+3. feature/game-menu                      →  main
+4. feature/game-scaffold                  →  main
+5. feature/game-addition                  →  main
+6. feature/game-subtraction               →  main
+7. feature/game-multiplication            →  main
+8. feature/game-division                  →  main
+9. feature/game-mixed                     →  main
+10. feature/game-speed                    →  main
+11. feature/release-pipeline              →  main
+```
+
+## Notes
+
+- All features must have passing tests before merge
+- CI must be green on every push
+- Each feature branch uses a git worktree for parallel development
