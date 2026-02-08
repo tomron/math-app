@@ -43,11 +43,11 @@
 ## Phase 4: Game Scaffold & Navigation
 **Branch:** `feature/game-scaffold`
 
-- [ ] Base game screen composable (top bar, back button, difficulty selector)
-- [ ] Difficulty enum (Easy, Medium, Hard)
-- [ ] Navigation: menu → game → back to menu
-- [ ] Unit tests: navigation logic
-- [ ] UI tests: difficulty selection, back navigation
+- [x] Base game screen composable (top bar, back button, difficulty selector)
+- [x] Difficulty enum (Easy, Medium, Hard)
+- [x] Navigation: menu → game → back to menu
+- [x] Unit tests: navigation logic
+- [x] UI tests: difficulty selection, back navigation
 
 ## Phase 5: Game Placeholders
 Each game gets its own branch and follows the same pattern:
