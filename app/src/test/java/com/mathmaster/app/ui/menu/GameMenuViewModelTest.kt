@@ -54,7 +54,7 @@ class GameMenuViewModelTest {
 
             val addition = state.games.find { it.id == GameType.ADDITION }
             assertNotNull(addition)
-            assertEquals("Addition", addition?.title)
+            assertEquals("Digits", addition?.title)
             assertEquals("game_addition", addition?.route)
 
             val speed = state.games.find { it.id == GameType.SPEED }
