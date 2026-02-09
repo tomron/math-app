@@ -54,6 +54,9 @@ android {
         jvmTarget = "17"
     }
 
+    // Note: While CI/release use Java 25 for tooling, we target Java 17 bytecode
+    // for broader Android compatibility (minSdk 24 requires Java 17 max)
+
     buildFeatures {
         compose = true
     }
