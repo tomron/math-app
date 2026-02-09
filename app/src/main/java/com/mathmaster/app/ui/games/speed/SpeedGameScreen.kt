@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.division
+package com.mathmaster.app.ui.games.speed
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import com.mathmaster.app.ui.games.BaseGameScaffold
 
 @Composable
-fun divisionGameScreen(
-    viewModel: divisionGameViewModel,
+fun SpeedGameScreen(
+    viewModel: SpeedGameViewModel,
     onBackPressed: () -> Unit
 ) {
     val difficulty by viewModel.difficulty.collectAsState()
 
     BaseGameScaffold(
-        title = "division",
+        title = "Speed Round",
         selectedDifficulty = difficulty,
         onDifficultyChanged = viewModel::setDifficulty,
         onBackPressed = onBackPressed
@@ -28,7 +28,7 @@ fun divisionGameScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "division Game - ${difficulty.displayName}\n(Coming Soon)",
+                text = "Speed Round - ${difficulty.displayName}\n(Coming Soon)",
                 style = MaterialTheme.typography.headlineMedium
             )
         }

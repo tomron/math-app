@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.speed
+package com.mathmaster.app.ui.games.mixed
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import com.mathmaster.app.ui.games.BaseGameScaffold
 
 @Composable
-fun speedGameScreen(
-    viewModel: speedGameViewModel,
+fun MixedGameScreen(
+    viewModel: MixedGameViewModel,
     onBackPressed: () -> Unit
 ) {
     val difficulty by viewModel.difficulty.collectAsState()
 
     BaseGameScaffold(
-        title = "speed",
+        title = "Mixed Operations",
         selectedDifficulty = difficulty,
         onDifficultyChanged = viewModel::setDifficulty,
         onBackPressed = onBackPressed
@@ -28,7 +28,7 @@ fun speedGameScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "speed Game - ${difficulty.displayName}\n(Coming Soon)",
+                text = "Mixed Operations - ${difficulty.displayName}\n(Coming Soon)",
                 style = MaterialTheme.typography.headlineMedium
             )
         }

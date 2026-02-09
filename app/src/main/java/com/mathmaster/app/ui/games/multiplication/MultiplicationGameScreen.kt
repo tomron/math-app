@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import com.mathmaster.app.ui.games.BaseGameScaffold
 
 @Composable
-fun multiplicationGameScreen(
-    viewModel: multiplicationGameViewModel,
+fun MultiplicationGameScreen(
+    viewModel: MultiplicationGameViewModel,
     onBackPressed: () -> Unit
 ) {
     val difficulty by viewModel.difficulty.collectAsState()
 
     BaseGameScaffold(
-        title = "multiplication",
+        title = "Multiplication",
         selectedDifficulty = difficulty,
         onDifficultyChanged = viewModel::setDifficulty,
         onBackPressed = onBackPressed
@@ -28,7 +28,7 @@ fun multiplicationGameScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "multiplication Game - ${difficulty.displayName}\n(Coming Soon)",
+                text = "Multiplication - ${difficulty.displayName}\n(Coming Soon)",
                 style = MaterialTheme.typography.headlineMedium
             )
         }

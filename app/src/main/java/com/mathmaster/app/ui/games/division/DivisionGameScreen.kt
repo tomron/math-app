@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.mixed
+package com.mathmaster.app.ui.games.division
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import com.mathmaster.app.ui.games.BaseGameScaffold
 
 @Composable
-fun mixedGameScreen(
-    viewModel: mixedGameViewModel,
+fun DivisionGameScreen(
+    viewModel: DivisionGameViewModel,
     onBackPressed: () -> Unit
 ) {
     val difficulty by viewModel.difficulty.collectAsState()
 
     BaseGameScaffold(
-        title = "mixed",
+        title = "Division",
         selectedDifficulty = difficulty,
         onDifficultyChanged = viewModel::setDifficulty,
         onBackPressed = onBackPressed
@@ -28,7 +28,7 @@ fun mixedGameScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "mixed Game - ${difficulty.displayName}\n(Coming Soon)",
+                text = "Division - ${difficulty.displayName}\n(Coming Soon)",
                 style = MaterialTheme.typography.headlineMedium
             )
         }
