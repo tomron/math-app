@@ -27,7 +27,7 @@ val allGames = listOf(
         id = GameType.ADDITION,
         title = "Digits",
         description = "Combine numbers to reach the target",
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Info,
         route = Routes.GAME_ADDITION
     ),
     GameDefinition(

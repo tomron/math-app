@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.addition
+package com.mathmaster.app.ui.games.digits
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 /**
  * UI state for the Addition/Digits game screen.
  */
-data class AdditionGameUiState(
+data class DigitsGameUiState(
     val gameState: GameState,
     val difficulty: Difficulty = Difficulty.EASY,
     val gameMode: GameMode = GameMode.CLASSIC,
@@ -28,14 +28,14 @@ data class AdditionGameUiState(
 /**
  * ViewModel for the Digits game (Addition game slot).
  */
-class AdditionGameViewModel : ViewModel() {
+class DigitsGameViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        AdditionGameUiState(
+        DigitsGameUiState(
             gameState = PuzzleGenerator.generatePuzzle(Difficulty.EASY, GameMode.CLASSIC)
         )
     )
-    val uiState: StateFlow<AdditionGameUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<DigitsGameUiState> = _uiState.asStateFlow()
 
     private var timerJob: Job? = null
 
@@ -164,7 +164,7 @@ class AdditionGameViewModel : ViewModel() {
      * Executes the current move.
      */
     private fun executeMove(gameState: GameState): GameState {
-        return com.mathmaster.app.ui.games.addition.executeMove(gameState)
+        return com.mathmaster.app.ui.games.digits.executeMove(gameState)
     }
 
     /**

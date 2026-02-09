@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.addition
+package com.mathmaster.app.ui.games.digits
 
 import app.cash.turbine.test
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class AdditionGameViewModelTest {
+class DigitsGameViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
@@ -26,7 +26,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `initial state has valid game`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val state = awaitItem()
@@ -43,7 +43,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `selectNumber adds to selection`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -60,7 +60,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `selectNumber deselects if already selected`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -76,7 +76,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `selectNumber swaps second selection when two already selected`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -95,7 +95,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `selectOperation executes move when two numbers selected`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val initial = awaitItem()
@@ -120,7 +120,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `selectOperation only sets operation when less than two numbers selected`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -139,7 +139,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `undo restores previous state`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val initial = awaitItem()
@@ -164,7 +164,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `restart resets to initial puzzle state`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val initial = awaitItem()
@@ -190,7 +190,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `setDifficulty changes difficulty and starts new game`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial EASY state
@@ -205,7 +205,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `setGameMode changes mode and starts new game`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial CLASSIC state
@@ -220,7 +220,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `timer mode counts down`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -241,7 +241,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `timer timeout shows timeout overlay`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -261,7 +261,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `challenge mode timeout shows challenge results`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -280,7 +280,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `showExplanation sets showExplanation flag`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -295,7 +295,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `hideExplanation clears showExplanation flag`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -312,7 +312,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `dismissWinOverlay hides overlay`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -330,7 +330,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `dismissTimeoutOverlay hides overlay`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -344,7 +344,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `dismissChallengeResults resets stats`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state
@@ -359,7 +359,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `newPuzzle generates new puzzle`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val initial = awaitItem()
@@ -377,7 +377,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `classic mode has no timer`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             val state = awaitItem()
@@ -389,7 +389,7 @@ class AdditionGameViewModelTest {
 
     @Test
     fun `challenge mode initializes stats`() = runTest {
-        val viewModel = AdditionGameViewModel()
+        val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
             awaitItem() // Initial state

@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.addition
+package com.mathmaster.app.ui.games.digits
 
 import kotlin.random.Random
 

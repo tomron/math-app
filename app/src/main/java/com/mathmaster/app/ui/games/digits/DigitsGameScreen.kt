@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.addition
+package com.mathmaster.app.ui.games.digits
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,13 +27,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdditionGameScreen(
-    viewModel: AdditionGameViewModel = viewModel(),
+fun DigitsGameScreen(
+    viewModel: DigitsGameViewModel = viewModel(),
     onBackPressed: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    AdditionGameContent(
+    DigitsGameContent(
         uiState = uiState,
         onBackPressed = onBackPressed,
         onNumberClick = viewModel::selectNumber,
@@ -54,8 +54,8 @@ fun AdditionGameScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdditionGameContent(
-    uiState: AdditionGameUiState,
+fun DigitsGameContent(
+    uiState: DigitsGameUiState,
     onBackPressed: () -> Unit,
     onNumberClick: (Int) -> Unit,
     onOperationClick: (Operation) -> Unit,

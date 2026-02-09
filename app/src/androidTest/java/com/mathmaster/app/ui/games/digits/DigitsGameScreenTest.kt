@@ -1,4 +1,4 @@
-package com.mathmaster.app.ui.games.addition
+package com.mathmaster.app.ui.games.digits
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -6,7 +6,7 @@ import com.mathmaster.app.ui.theme.MathMasterTheme
 import org.junit.Rule
 import org.junit.Test
 
-class AdditionGameScreenTest {
+class DigitsGameScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -15,8 +15,8 @@ class AdditionGameScreenTest {
     fun gameScreen_displaysAllElements() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -51,8 +51,8 @@ class AdditionGameScreenTest {
     fun gameScreen_numberTilesClickable() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -71,8 +71,8 @@ class AdditionGameScreenTest {
     fun gameScreen_operationButtonsDisplay() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -88,8 +88,8 @@ class AdditionGameScreenTest {
     fun gameScreen_switchToMediumDifficulty() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -109,8 +109,8 @@ class AdditionGameScreenTest {
     fun gameScreen_switchToHardDifficulty() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -131,8 +131,8 @@ class AdditionGameScreenTest {
     fun gameScreen_switchToTimerMode() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -150,8 +150,8 @@ class AdditionGameScreenTest {
     fun gameScreen_switchToChallengeMode() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -173,8 +173,8 @@ class AdditionGameScreenTest {
     fun gameScreen_undoButtonInitiallyDisabled() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -188,8 +188,8 @@ class AdditionGameScreenTest {
     fun gameScreen_restartButtonClickable() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -204,8 +204,8 @@ class AdditionGameScreenTest {
     fun gameScreen_explainButtonClickable() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -223,8 +223,8 @@ class AdditionGameScreenTest {
     fun gameScreen_newPuzzleButtonClickable() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
@@ -241,8 +241,8 @@ class AdditionGameScreenTest {
 
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = { backPressed = true }
                 )
@@ -257,8 +257,8 @@ class AdditionGameScreenTest {
     fun gameScreen_moveCounterDisplays() {
         composeTestRule.setContent {
             MathMasterTheme {
-                val viewModel = AdditionGameViewModel()
-                AdditionGameScreen(
+                val viewModel = DigitsGameViewModel()
+                DigitsGameScreen(
                     viewModel = viewModel,
                     onBackPressed = {}
                 )
