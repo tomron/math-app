@@ -79,9 +79,12 @@ app/src/main/java/com/mathmaster/app/
 
 ### Prerequisites
 
-- **JDK** 17 (already installed at `/opt/homebrew/opt/openjdk@17`)
+- **JDK** 17 or later (required - the project uses Gradle 8.11.1 and Kotlin 2.1.0)
+  - Install via Homebrew: `brew install openjdk@17`
+  - Set JAVA_HOME for builds: `export JAVA_HOME=$(/usr/libexec/java_home -v 17)`
+  - Note: Java 25+ is not yet fully supported by the Kotlin compiler
 - **Android SDK** with API level 34 (already installed)
-- **Gradle** 8.2 or later (included via wrapper)
+- **Gradle** 8.11.1 or later (included via wrapper)
 - **Android Emulator** (already configured)
 
 ### Quick Start (Recommended)

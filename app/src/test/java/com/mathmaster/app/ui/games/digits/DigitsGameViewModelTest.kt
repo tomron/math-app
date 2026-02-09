@@ -196,7 +196,8 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial EASY state
 
             viewModel.setDifficulty(Difficulty.HARD)
-            val state = awaitItem()
+            skipItems(1) // Skip the intermediate difficulty update
+            val state = awaitItem() // Final state after startNewGame()
 
             assertEquals(Difficulty.HARD, state.difficulty)
             assertEquals(6, state.gameState.numbers.size) // HARD has 6 numbers
@@ -211,7 +212,8 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial CLASSIC state
 
             viewModel.setGameMode(GameMode.TIMER)
-            val state = awaitItem()
+            skipItems(1) // Skip the intermediate mode update
+            val state = awaitItem() // Final state after startNewGame()
 
             assertEquals(GameMode.TIMER, state.gameMode)
             assertEquals(60, state.timeRemaining)
@@ -226,7 +228,8 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial state
 
             viewModel.setGameMode(GameMode.TIMER)
-            val state1 = awaitItem()
+            skipItems(1) // Skip intermediate mode update
+            val state1 = awaitItem() // Final state after startNewGame()
             assertEquals(60, state1.timeRemaining)
 
             advanceTimeBy(1000)
@@ -247,12 +250,17 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial state
 
             viewModel.setGameMode(GameMode.TIMER)
+            skipItems(1) // Skip intermediate mode update
             awaitItem() // Mode changed, timer at 60
 
-            // Fast forward to timeout
+            // Fast forward to timeout - timer counts from 60 to 0
+            // Each second produces an emission (60 -> 59 -> ... -> 1 -> 0)
+            // At 0, handleTimeout() is called which produces another emission
             advanceTimeBy(60_000)
+            skipItems(59) // Skip countdown from 59 to 1
+            awaitItem() // Time set to 0
+            val state = awaitItem() // handleTimeout() sets overlay
 
-            val state = awaitItem()
             assertEquals(0, state.timeRemaining)
             assertTrue(state.showTimeoutOverlay)
             assertEquals(GameStatus.TIMEOUT, state.gameState.status)
@@ -267,12 +275,17 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial state
 
             viewModel.setGameMode(GameMode.CHALLENGE)
+            skipItems(1) // Skip intermediate mode update
             awaitItem() // Mode changed
 
-            // Fast forward to timeout
+            // Fast forward to timeout - timer counts from 60 to 0
+            // Each second produces an emission (60 -> 59 -> ... -> 1 -> 0)
+            // At 0, handleTimeout() is called which produces another emission
             advanceTimeBy(60_000)
+            skipItems(59) // Skip countdown from 59 to 1
+            awaitItem() // Time set to 0
+            val state = awaitItem() // handleTimeout() sets challenge results
 
-            val state = awaitItem()
             assertTrue(state.showChallengeResults)
             assertEquals(GameStatus.TIMEOUT, state.gameState.status)
         }
@@ -315,16 +328,15 @@ class DigitsGameViewModelTest {
         val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
-            awaitItem() // Initial state
+            val initial = awaitItem() // Initial state
+            assertFalse(initial.showWinOverlay) // Verify it starts hidden
 
-            // Manually set win overlay for testing
-            viewModel.showExplanation() // Just to trigger an update
-            awaitItem()
-
+            // The dismiss method should work even if already hidden (idempotent)
+            // Since StateFlow doesn't emit duplicate values, we just verify current state
             viewModel.dismissWinOverlay()
-            val state = awaitItem()
 
-            assertFalse(state.showWinOverlay)
+            // No new emission expected since value didn't change
+            expectNoEvents()
         }
     }
 
@@ -333,12 +345,15 @@ class DigitsGameViewModelTest {
         val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
-            awaitItem() // Initial state
+            val initial = awaitItem() // Initial state
+            assertFalse(initial.showTimeoutOverlay) // Verify it starts hidden
 
+            // The dismiss method should work even if already hidden (idempotent)
+            // Since StateFlow doesn't emit duplicate values, we just verify current state
             viewModel.dismissTimeoutOverlay()
-            val state = awaitItem()
 
-            assertFalse(state.showTimeoutOverlay)
+            // No new emission expected since value didn't change
+            expectNoEvents()
         }
     }
 
@@ -347,13 +362,16 @@ class DigitsGameViewModelTest {
         val viewModel = DigitsGameViewModel()
 
         viewModel.uiState.test {
-            awaitItem() // Initial state
+            val initial = awaitItem() // Initial state
+            assertFalse(initial.showChallengeResults) // Verify it starts hidden
+            assertEquals(0, initial.challengeStats.puzzlesSolved) // Stats already at 0
 
+            // The dismiss method should work even if already hidden (idempotent)
+            // Since StateFlow doesn't emit duplicate values, we just verify current state
             viewModel.dismissChallengeResults()
-            val state = awaitItem()
 
-            assertFalse(state.showChallengeResults)
-            assertEquals(0, state.challengeStats.puzzlesSolved)
+            // No new emission expected since values didn't change
+            expectNoEvents()
         }
     }
 
@@ -395,7 +413,8 @@ class DigitsGameViewModelTest {
             awaitItem() // Initial state
 
             viewModel.setGameMode(GameMode.CHALLENGE)
-            val state = awaitItem()
+            skipItems(1) // Skip intermediate mode update
+            val state = awaitItem() // Final state after startNewGame()
 
             assertEquals(0, state.challengeStats.puzzlesSolved)
             assertEquals(0, state.challengeStats.totalTime)
