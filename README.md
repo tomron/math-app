@@ -8,12 +8,12 @@ An offline-first Android app that bundles multiple math games for practice and f
 - **Game Menu**: Choose from 6 different math games with varying difficulty levels
 - **Fully Offline**: All data stored locally with Room database - no internet required
 - **Math Games**:
-  1. **Addition** - Practice addition problems
-  2. **Subtraction** - Practice subtraction problems
-  3. **Multiplication** - Practice multiplication tables
-  4. **Division** - Practice division problems
-  5. **Mixed Operations** - Random mix of all four operations
-  6. **Speed Round** - Timed math challenges
+  1. **Digits** ✅ - Combine numbers using operations to reach a target (fully playable with 3 modes & difficulties)
+  2. **Subtraction** - Practice subtraction problems (placeholder)
+  3. **Multiplication** - Practice multiplication tables (placeholder)
+  4. **Division** - Practice division problems (placeholder)
+  5. **Mixed Operations** - Random mix of all four operations (placeholder)
+  6. **Speed Round** - Timed math challenges (placeholder)
 
 ## Tech Stack
 
@@ -52,12 +52,16 @@ app/src/main/java/com/mathmaster/app/
 │   │   ├── GameMenuScreen.kt
 │   │   └── GameMenuViewModel.kt
 │   ├── games/           # Individual game screens
-│   │   ├── addition/
-│   │   ├── subtraction/
-│   │   ├── multiplication/
-│   │   ├── division/
-│   │   ├── mixed/
-│   │   └── speed/
+│   │   ├── digits/           # ✅ Fully playable puzzle game
+│   │   │   ├── DigitsGame.kt        # Core game logic & types
+│   │   │   ├── PuzzleGenerator.kt   # Puzzle generation & BFS solver
+│   │   │   ├── DigitsGameViewModel.kt
+│   │   │   └── DigitsGameScreen.kt
+│   │   ├── subtraction/      # Placeholder
+│   │   ├── multiplication/   # Placeholder
+│   │   ├── division/         # Placeholder
+│   │   ├── mixed/            # Placeholder
+│   │   └── speed/            # Placeholder
 │   └── theme/           # Material 3 theme
 │       ├── Color.kt
 │       ├── Theme.kt

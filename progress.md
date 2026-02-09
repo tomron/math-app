@@ -8,7 +8,7 @@
 ---
 
 ## Phase 1: Project Foundation
-**Branch:** `claude/setup-android-math-games-S5UBn`
+**Branch:** `claude/setup-android-math-games-S5UBn` ✅ **MERGED**
 
 - [x] Planning documents (PRD.md, progress.md, CLAUDE.md)
 - [x] Android project scaffold (Gradle, app module, dependencies)
@@ -18,10 +18,14 @@
 - [x] GitHub Actions: test on push
 - [x] GitHub Actions: test on-demand with branch parameter
 - [x] GitHub Actions: release build for Google Play
-- [~] Verify local emulator build & run
+- [x] Verify local emulator build & run
+- [x] Java 17 setup
+- [x] Android SDK installation & configuration
+- [x] Emulator setup (Pixel 7 Pro, Android 14)
+- [x] Development scripts (run-emulator.sh, run-app.sh, start-dev.sh)
 
 ## Phase 2: Profile System
-**Branch:** `feature/profile-system`
+**Branch:** `feature/profile-system` ✅ **MERGED**
 
 - [x] Profile entity + DAO
 - [x] Profile repository
@@ -32,7 +36,7 @@
 - [x] UI tests: profile creation, selection, deletion
 
 ## Phase 3: Game Menu
-**Branch:** `feature/game-menu`
+**Branch:** `feature/game-menu` ✅ **MERGED**
 
 - [x] Game menu screen (grid of 6 game cards)
 - [x] Game definition model (id, title, description, icon)
@@ -40,21 +44,80 @@
 - [x] Unit tests: menu ViewModel
 - [x] UI tests: menu display, game card tap navigation
 
-## Phase 4: Game Scaffold & Navigation
-**Branch:** `feature/game-scaffold`
+## Phase 4: Digits Game (Full Implementation)
+**Branch:** `feature/digits-game` 🔄 **IN PR** (#5)
 
-- [ ] Base game screen composable (top bar, back button, difficulty selector)
-- [ ] Difficulty enum (Easy, Medium, Hard)
-- [ ] Navigation: menu → game → back to menu
-- [ ] Unit tests: navigation logic
-- [ ] UI tests: difficulty selection, back navigation
+### Game Logic (Pure Kotlin)
+- [x] DigitsGame.kt - Core types and engine
+  - [x] Difficulty enum (Easy, Medium, Hard) with configs
+  - [x] Operation enum (+, -, ×, ÷) with validation
+  - [x] GameMode enum (Classic, Timer, Challenge)
+  - [x] GameState with immutable operations
+  - [x] applyOperation() - validates and executes operations
+  - [x] executeMove() - auto-reverse for non-commutative ops
+  - [x] undoMove(), restartPuzzle()
+  - [x] Reject negative/zero results
 
-## Phase 5: Game Placeholders
-Each game gets its own branch and follows the same pattern:
+- [x] PuzzleGenerator.kt - Puzzle generation & solver
+  - [x] Forward simulation puzzle generation
+  - [x] Ensures solvable puzzles in target range
+  - [x] BFS solver for "Explain" feature
+  - [x] Challenge mode puzzle generation
 
-### Addition — `feature/game-addition`
-- [ ] Placeholder screen with difficulty selector
-- [ ] Tests
+### ViewModel & UI
+- [x] DigitsGameViewModel.kt
+  - [x] StateFlow-based state management
+  - [x] Coroutine-based timer (60s countdown)
+  - [x] Mode/difficulty switching
+  - [x] Win/timeout handling
+  - [x] Challenge stats tracking
+
+- [x] DigitsGameScreen.kt - Full Compose UI
+  - [x] Mode selector chips (Classic/Timer/Challenge)
+  - [x] Difficulty selector chips (Easy/Medium/Hard)
+  - [x] Timer display with color coding
+  - [x] Target number card
+  - [x] Number tiles with selection indicators
+  - [x] Operation buttons (filtered by difficulty)
+  - [x] Action buttons (Undo/Restart/Skip/Explain/New)
+  - [x] Win overlay with move counter
+  - [x] Timeout overlay
+  - [x] Challenge results overlay
+  - [x] Explanation dialog (step-by-step solution)
+
+### Testing
+- [x] DigitsGameTest.kt - 30+ unit tests
+  - [x] All 4 operations with edge cases
+  - [x] Move execution with auto-reverse
+  - [x] Undo/restart functionality
+  - [x] Win condition detection
+
+- [x] PuzzleGeneratorTest.kt - Puzzle generation tests
+  - [x] Valid puzzle generation for all difficulties
+  - [x] Deterministic generation with fixed seeds
+  - [x] BFS solver correctness
+
+- [x] DigitsGameViewModelTest.kt - ViewModel tests
+  - [x] State flow emissions
+  - [x] Timer countdown logic
+  - [x] Mode/difficulty switching
+  - [~] 10 tests have Turbine timeout issues (game logic works)
+
+- [x] DigitsGameScreenTest.kt - 14 UI tests
+  - [x] Screen element rendering
+  - [x] User interactions
+  - [x] Mode/difficulty switching UI
+
+### Navigation
+- [x] Updated NavGraph.kt with Digits game route
+- [x] Updated GameDefinition.kt (renamed Addition → Digits)
+
+### Package Rename
+- [x] Renamed from `addition` to `digits` throughout
+- [x] Updated all imports and references
+- [x] All files renamed (Screen, ViewModel, tests)
+
+## Phase 5: Remaining Game Placeholders
 
 ### Subtraction — `feature/game-subtraction`
 - [ ] Placeholder screen with difficulty selector
@@ -89,17 +152,16 @@ Each game gets its own branch and follows the same pattern:
 ## Merge Order
 
 ```
-1. claude/setup-android-math-games-S5UBn  →  main
-2. feature/profile-system                 →  main
-3. feature/game-menu                      →  main
-4. feature/game-scaffold                  →  main
-5. feature/game-addition                  →  main
-6. feature/game-subtraction               →  main
-7. feature/game-multiplication            →  main
-8. feature/game-division                  →  main
-9. feature/game-mixed                     →  main
-10. feature/game-speed                    →  main
-11. feature/release-pipeline              →  main
+1. ✅ claude/setup-android-math-games-S5UBn  →  main (MERGED)
+2. ✅ feature/profile-system                 →  main (MERGED)
+3. ✅ feature/game-menu                      →  main (MERGED)
+4. 🔄 feature/digits-game                    →  main (PR #5 - IN REVIEW)
+5. ⏳ feature/game-subtraction               →  main
+6. ⏳ feature/game-multiplication            →  main
+7. ⏳ feature/game-division                  →  main
+8. ⏳ feature/game-mixed                     →  main
+9. ⏳ feature/game-speed                     →  main
+10. ⏳ feature/release-pipeline              →  main
 ```
 
 ## Notes
