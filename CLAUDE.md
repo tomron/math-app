@@ -159,7 +159,14 @@ class MyClassTest {
 open app/build/reports/lint-results-debug.html
 ```
 
-Lint runs automatically in CI on every push.
+**CRITICAL:** Lint must pass with no errors or warnings before creating a PR.
+
+### Lint Requirements
+- Run `./gradlew lint` before every commit
+- Fix all lint errors and warnings before pushing
+- Lint runs automatically in CI on every push
+- CI will fail if lint detects any issues
+- Check lint reports at `app/build/reports/lint-results-debug.html` if lint fails
 
 ## CI/CD Workflows
 
@@ -343,11 +350,13 @@ git fetch --prune
    git commit -m "Implement profile system with Room database"
    ```
 
-3. **Run tests locally:**
+3. **Run tests and lint locally:**
    ```bash
    ./gradlew test
    ./gradlew lint
    ```
+
+   **IMPORTANT:** Always run lint before pushing. Fix any lint errors or warnings before creating a PR.
 
 4. **Push to remote:**
    ```bash
@@ -370,6 +379,7 @@ git fetch --prune
 
 **Pre-merge checklist:**
 - [ ] All CI checks passing (green checkmark)
+- [ ] Lint ran successfully with no errors or warnings
 - [ ] Code reviewed and approved
 - [ ] All tests passing locally
 - [ ] No merge conflicts with base branch
@@ -417,6 +427,8 @@ gh pr merge <number> --rebase --delete-branch
 
 ### After Merging
 
+**IMPORTANT:** Always clean up branches and worktrees immediately after merging a PR.
+
 1. **Update main:**
    ```bash
    cd /Users/tomron/code/math-app
@@ -424,7 +436,19 @@ gh pr merge <number> --rebase --delete-branch
    git pull
    ```
 
-2. **Rebase remaining feature branches:**
+2. **Clean up the merged branch and worktree:**
+   ```bash
+   # Remove the worktree (e.g., for feature/profile-system)
+   git worktree remove ../math-app-phase2
+
+   # Delete the local branch
+   git branch -d feature/profile-system
+
+   # Verify remote branch was deleted (should have been deleted by PR merge)
+   git fetch --prune
+   ```
+
+3. **Rebase remaining feature branches:**
    ```bash
    cd /Users/tomron/code/math-app-phase3
    git fetch origin
@@ -432,11 +456,7 @@ gh pr merge <number> --rebase --delete-branch
    git push -f
    ```
 
-3. **Clean up merged worktrees:**
-   ```bash
-   git worktree remove ../math-app-phase2
-   git branch -d feature/profile-system
-   ```
+**Note:** When using `gh pr merge --delete-branch`, GitHub automatically deletes the remote branch. Always verify the branch is removed locally and the worktree is cleaned up.
 
 ### Handling CI Failures
 
@@ -589,8 +609,9 @@ git worktree prune
 git worktree add ../math-app-new-feature -b feature/new-feature
 cd ../math-app-new-feature
 
-# Make changes, test, commit
+# Make changes, test, lint, commit
 ./gradlew test
+./gradlew lint  # Always run lint before committing
 git add .
 git commit -m "Implement new feature"
 
@@ -598,9 +619,10 @@ git commit -m "Implement new feature"
 git push origin feature/new-feature
 gh pr create --title "New Feature"
 
-# After merge, clean up
+# After PR is merged, clean up immediately
 cd /Users/tomron/code/math-app
 git pull
-git worktree remove ../math-app-new-feature
-git branch -d feature/new-feature
+git worktree remove ../math-app-new-feature  # Remove worktree
+git branch -d feature/new-feature              # Delete local branch
+git fetch --prune                              # Clean up remote tracking
 ```
