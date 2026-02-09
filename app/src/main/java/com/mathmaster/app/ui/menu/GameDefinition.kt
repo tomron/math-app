@@ -32,9 +32,9 @@ val allGames = listOf(
     ),
     GameDefinition(
         id = GameType.SUBTRACTION,
-        title = "Subtraction",
-        description = "Practice subtracting numbers",
-        icon = Icons.Default.Delete,
+        title = "Magic Square",
+        description = "Fill the grid so rows and columns sum equally",
+        icon = Icons.Default.Settings,
         route = Routes.GAME_SUBTRACTION
     ),
     GameDefinition(
@@ -55,7 +55,7 @@ val allGames = listOf(
         id = GameType.MIXED,
         title = "Mixed Operations",
         description = "Practice all operations",
-        icon = Icons.Default.Settings,
+        icon = Icons.Default.ShoppingCart,
         route = Routes.GAME_MIXED
     ),
     GameDefinition(

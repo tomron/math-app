@@ -18,8 +18,8 @@ import com.mathmaster.app.ui.games.multiplication.MultiplicationGameScreen
 import com.mathmaster.app.ui.games.multiplication.MultiplicationGameViewModel
 import com.mathmaster.app.ui.games.speed.SpeedGameScreen
 import com.mathmaster.app.ui.games.speed.SpeedGameViewModel
-import com.mathmaster.app.ui.games.subtraction.SubtractionGameScreen
-import com.mathmaster.app.ui.games.subtraction.SubtractionGameViewModel
+import com.mathmaster.app.ui.games.magicsquare.MagicSquareScreen
+import com.mathmaster.app.ui.games.magicsquare.MagicSquareViewModel
 import com.mathmaster.app.ui.menu.GameMenuScreen
 import com.mathmaster.app.ui.menu.GameMenuViewModel
 import com.mathmaster.app.ui.profile.ProfileSelectionScreen
@@ -83,10 +83,10 @@ fun MathMasterNavGraph(
         }
 
         composable(Routes.GAME_SUBTRACTION) {
-            val viewModel: SubtractionGameViewModel = viewModel()
-            SubtractionGameScreen(
+            val viewModel: MagicSquareViewModel = viewModel()
+            MagicSquareScreen(
                 viewModel = viewModel,
-                onBackPressed = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 
