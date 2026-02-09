@@ -25,8 +25,8 @@ data class GameDefinition(
 val allGames = listOf(
     GameDefinition(
         id = GameType.ADDITION,
-        title = "Addition",
-        description = "Practice adding numbers",
+        title = "Digits",
+        description = "Combine numbers to reach the target",
         icon = Icons.Default.Add,
         route = Routes.GAME_ADDITION
     ),
