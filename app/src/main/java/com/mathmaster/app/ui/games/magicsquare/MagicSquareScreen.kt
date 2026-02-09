@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mathmaster.app.ui.games.Difficulty
 
@@ -33,17 +34,8 @@ fun MagicSquareScreen(
                 title = { Text("Magic Square") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
                     }
-                },
-                actions = {
-                    DifficultyDropdown(
-                        currentDifficulty = uiState.difficulty,
-                        onDifficultySelected = { viewModel.setDifficulty(it) }
-                    )
                 }
             )
         }
@@ -53,9 +45,14 @@ fun MagicSquareScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Difficulty selector
+            DifficultySelector(
+                currentDifficulty = uiState.difficulty,
+                onDifficultyChange = { viewModel.setDifficulty(it) }
+            )
+
             // Magic constant display
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -63,24 +60,36 @@ fun MagicSquareScreen(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
-                Text(
-                    text = "Target sum: ${uiState.gameState.magicConstant}",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    textAlign = TextAlign.Center
-                )
+                Column(
+                    modifier = Modifier.padding(24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Target Sum",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Text(
+                        text = uiState.gameState.magicConstant.toString(),
+                        style = MaterialTheme.typography.displayLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
 
             // Grid
-            MagicSquareGrid(
-                gameState = uiState.gameState,
-                onCellClick = { row, col -> viewModel.selectCell(row, col) }
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                MagicSquareGrid(
+                    gameState = uiState.gameState,
+                    onCellClick = { row, col -> viewModel.selectCell(row, col) }
+                )
+            }
 
             // Number pad
             NumberPad(
@@ -117,14 +126,14 @@ fun MagicSquareGrid(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         gameState.grid.forEachIndexed { rowIndex, row ->
             Row(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 row.forEachIndexed { colIndex, cell ->
                     GridCell(
@@ -139,11 +148,6 @@ fun MagicSquareGrid(
             }
         }
     }
-
-    Spacer(modifier = Modifier.height(8.dp))
-
-    // Row and column sum indicators
-    SumIndicators(gameState)
 }
 
 @Composable
@@ -154,9 +158,9 @@ fun GridCell(
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = when {
-        isSelected -> MaterialTheme.colorScheme.primaryContainer
+        isSelected -> MaterialTheme.colorScheme.primary
         cell is CellState.Fixed -> MaterialTheme.colorScheme.surfaceVariant
-        else -> MaterialTheme.colorScheme.surface
+        else -> MaterialTheme.colorScheme.surfaceVariant
     }
 
     val borderColor = if (isSelected) {
@@ -167,11 +171,11 @@ fun GridCell(
 
     Box(
         modifier = modifier
-            .background(backgroundColor, RoundedCornerShape(8.dp))
+            .background(backgroundColor, RoundedCornerShape(12.dp))
             .border(
-                width = if (isSelected) 3.dp else 1.dp,
+                width = 2.dp,
                 color = borderColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(12.dp)
             )
             .clickable(enabled = cell.isEditable()) { onClick() },
         contentAlignment = Alignment.Center
@@ -180,9 +184,11 @@ fun GridCell(
         if (value != null) {
             Text(
                 text = value.toString(),
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = if (cell is CellState.Fixed) FontWeight.Bold else FontWeight.Normal,
-                color = if (cell is CellState.Fixed) {
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = if (isSelected) {
+                    MaterialTheme.colorScheme.onPrimary
+                } else if (cell is CellState.Fixed) {
                     MaterialTheme.colorScheme.onSurfaceVariant
                 } else {
                     MaterialTheme.colorScheme.primary
@@ -193,86 +199,21 @@ fun GridCell(
 }
 
 @Composable
-fun SumIndicators(gameState: MagicSquareState) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        // Row sums
-        Text(
-            text = "Row sums:",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            for (i in 0 until gameState.size) {
-                val sum = MagicSquareGame.getRowSum(gameState, i)
-                SumChip(
-                    label = "R${i + 1}",
-                    sum = sum,
-                    target = gameState.magicConstant
-                )
-            }
-        }
-
-        // Column sums
-        Text(
-            text = "Column sums:",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            for (i in 0 until gameState.size) {
-                val sum = MagicSquareGame.getColSum(gameState, i)
-                SumChip(
-                    label = "C${i + 1}",
-                    sum = sum,
-                    target = gameState.magicConstant
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun SumChip(
-    label: String,
-    sum: Int?,
-    target: Int
+fun DifficultySelector(
+    currentDifficulty: Difficulty,
+    onDifficultyChange: (Difficulty) -> Unit
 ) {
-    val color = when {
-        sum == null -> MaterialTheme.colorScheme.surfaceVariant
-        sum == target -> Color(0xFF4CAF50) // Green
-        sum > target -> Color(0xFFE57373) // Red
-        else -> MaterialTheme.colorScheme.surfaceVariant
-    }
-
-    Surface(
-        color = color,
-        shape = RoundedCornerShape(12.dp),
-        modifier = Modifier.padding(2.dp)
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = label,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (sum == target) Color.White else MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = sum?.toString() ?: "?",
-                fontSize = 12.sp,
-                color = if (sum == target) Color.White else MaterialTheme.colorScheme.onSurface
+        Difficulty.entries.forEach { difficulty ->
+            val isSelected = difficulty == currentDifficulty
+            FilterChip(
+                selected = isSelected,
+                onClick = { onDifficultyChange(difficulty) },
+                label = { Text(difficulty.name.lowercase().replaceFirstChar { it.uppercase() }) },
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -302,9 +243,16 @@ fun NumberPad(
                     if (number <= maxNumber) {
                         Button(
                             onClick = { onNumberClick(number) },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
                         ) {
-                            Text(number.toString())
+                            Text(
+                                text = number.toString(),
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     } else {
                         Spacer(modifier = Modifier.weight(1f))
@@ -324,54 +272,53 @@ fun NumberPad(
 }
 
 @Composable
-fun DifficultyDropdown(
-    currentDifficulty: Difficulty,
-    onDifficultySelected: (Difficulty) -> Unit
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    Box {
-        TextButton(onClick = { expanded = true }) {
-            Text(currentDifficulty.name)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            Difficulty.entries.forEach { difficulty ->
-                DropdownMenuItem(
-                    text = { Text(difficulty.name) },
-                    onClick = {
-                        onDifficultySelected(difficulty)
-                        expanded = false
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
 fun WinOverlay(
     onDismiss: () -> Unit,
     onNewPuzzle: () -> Unit
 ) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Congratulations!") },
-        text = { Text("You solved the magic square!") },
-        confirmButton = {
-            TextButton(onClick = {
-                onDismiss()
-                onNewPuzzle()
-            }) {
-                Text("New Puzzle")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Close")
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = "🎉 Solved!",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "You solved the magic square!",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Close")
+                    }
+
+                    Button(
+                        onClick = {
+                            onDismiss()
+                            onNewPuzzle()
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("New Puzzle")
+                    }
+                }
             }
         }
-    )
+    }
 }
