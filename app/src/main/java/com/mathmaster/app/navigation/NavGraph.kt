@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mathmaster.app.MathMasterApplication
+import com.mathmaster.app.ui.games.digits.DigitsGameScreen
+import com.mathmaster.app.ui.games.digits.DigitsGameViewModel
 import com.mathmaster.app.ui.menu.GameMenuScreen
 import com.mathmaster.app.ui.menu.GameMenuViewModel
 import com.mathmaster.app.ui.profile.ProfileSelectionScreen
@@ -53,6 +55,16 @@ fun MathMasterNavGraph(
                 onGameSelected = { game ->
                     navController.navigate(game.route)
                 },
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Routes.GAME_ADDITION) {
+            val viewModel: DigitsGameViewModel = viewModel()
+            DigitsGameScreen(
+                viewModel = viewModel,
                 onBackPressed = {
                     navController.popBackStack()
                 }
